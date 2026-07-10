@@ -1,187 +1,147 @@
-# Candidate Task: Weather Search Application
+# Candidate Task: Weather Application
 
-You have inherited a small full-stack weather application.
+You have inherited a small weather application built with Vue and a local backend.
 
-The application can already search for a city and display basic current-weather information. However, it was completed quickly and contains several areas that can be improved.
+The application already allows users to search for a city and view its current weather.
 
-Your task is to improve the application into a more complete and reliable weather-search experience.
+## Time
 
-## Objective
+You will have:
 
-Build a weather page that allows a user to search for a city and view:
+* 15 minutes before the test to install dependencies and run the project
+* 60 minutes for the coding exercise
 
-- the resolved city and country;
-- current weather conditions;
-- a multi-day weather forecast;
-- clear loading, empty, and error states.
+This is not a UI design exercise. A simple and usable interface is enough.
 
-The frontend must communicate only with the local backend. It must not call Open-Meteo directly.
+## Your Task
 
-## Required tasks
+Choose one route.
 
-### 1. Run and inspect the application
+### Route A
 
-Run both the frontend and backend locally.
+Complete:
 
-Review the existing implementation and identify issues related to:
+* 1 frontend task
+* 2 backend tasks
 
-- code quality;
-- API design;
-- user experience;
-- validation;
-- error handling;
-- reliability;
-- maintainability.
+### Route B
 
-Before making changes, briefly explain:
+Complete:
 
-- what you believe the main problems are;
-- which improvements you plan to make;
-- why you selected those improvements.
+* 1 full-stack task
+* 1 backend task
 
-### 2. Improve the city search
+You do not need to complete any tasks outside your selected route.
 
-The user must be able to search for a city by name.
+The existing city search must continue to work.
 
-The application should:
+---
 
-- reject an empty search;
-- trim unnecessary spaces;
-- handle unknown cities;
-- prevent repeated submissions while a request is in progress;
-- show a clear loading state;
-- show a useful error message when the request fails.
+# Frontend Tasks
 
-You may also add:
+Choose one.
 
-- search debouncing;
-- request cancellation;
-- recent searches;
-- search suggestions.
+## FE1: Validation and Feedback
 
-### 3. Display current weather
+* Trim the city input
+* Prevent empty searches
+* Show loading and error states
+* Prevent repeated submissions while loading
+* Show different messages for “city not found” and backend failure
 
-Display the following information:
+## FE2: Debounced Search
 
-- resolved city name;
-- country;
-- temperature;
-- apparent temperature;
-- wind speed;
-- weather code or a user-friendly weather description;
-- date and local time, where available.
+* Search after the user stops typing
+* Do not search empty values
+* Avoid unnecessary requests
+* Prevent an older request from replacing a newer result
 
-The page should remain usable when some weather fields are missing.
+## FE3: Recent Searches
 
-### 4. Display a multi-day forecast
+* Store successful searches in browser storage
+* Keep a maximum of five cities
+* Remove case-insensitive duplicates
+* Allow a previous city to be searched again
+* Handle invalid stored data safely
 
-Add a forecast section showing at least the next five days.
+---
 
-Each forecast day should display:
+# Backend Tasks
 
-- date or day name;
-- minimum temperature;
-- maximum temperature;
-- weather code or weather description;
-- precipitation probability, if available;
-- wind information, if available.
+Choose two for Route A, or one for Route B.
 
-The forecast should be presented in a clear and readable layout.
+## BE1: Validation and Errors
 
-### 5. Improve the backend
+* Trim and validate the city
+* Reject empty input
+* Return a suitable response when the city is not found
+* Use consistent error responses
+* Do not return raw exceptions to the frontend
 
-The backend must:
+## BE2: External API Reliability
 
-- accept the city name from the frontend;
-- retrieve the location from Open-Meteo geocoding;
-- retrieve current and daily forecast data from Open-Meteo;
-- return a clean response designed for the frontend;
-- return suitable HTTP status codes;
-- handle upstream timeouts and errors;
-- avoid exposing raw third-party errors directly to the user.
+* Add timeouts to Open-Meteo requests
+* Handle connection and timeout failures
+* Handle missing or invalid API data
+* Add useful backend logging
+* Return safe error messages to the frontend
 
-You should consider separating:
+## BE3: In-Memory Cache
 
-- route or controller logic;
-- weather-service logic;
-- response models;
-- external API handling.
+* Cache successful weather results
+* Use a normalised city name as the cache key
+* Add a configurable expiry time
+* Do not cache failed requests
+* Demonstrate a cache hit and cache miss
 
-A full architectural rewrite is not required.
+---
 
-### 6. Verification
+# Full-Stack Tasks
 
-Verify the application using at least these cases:
+Choose one for Route B.
 
-1. A valid city, such as `Singapore`
-2. Another valid city in a different country
-3. An unknown city
-4. An empty search
-5. A search containing additional spaces
-6. A simulated or real backend/API failure
-7. Multiple searches performed quickly
+The frontend must call only the local backend.
 
-Be prepared to explain how each case behaves.
+## FS1: Air Quality
 
-## Optional extensions
+Use Open-Meteo’s Air Quality API to display:
 
-Choose one or more extensions that demonstrate your strengths:
+* AQI
+* PM2.5
+* PM10
 
-- Celsius and Fahrenheit switching;
-- accessibility improvements;
-- responsive mobile layout;
-- weather icons;
-- automated frontend tests;
-- automated backend tests;
-- caching;
-- API documentation;
-- Docker support;
-- recent-search history;
-- request cancellation;
-- timezone-aware display;
-- hourly forecast;
-- localisation.
+Use the city coordinates already retrieved by the backend.
 
-Do not rebuild the entire project unless you can justify why that is the best use of the interview time.
+The weather result should still work if air-quality data is unavailable.
 
-## Expected deliverables
+A simple additional section or card is enough.
 
-At the end of the exercise, provide:
+## FS2: Multiple City Matches
 
-- the updated source code;
-- a short summary of the issues you identified;
-- a list of the changes you made;
-- instructions for running the application;
-- a short explanation of how you tested it;
-- any known limitations or unfinished items.
+Some city names can refer to multiple locations.
 
-## Discussion topics
+Instead of always using the first result:
+
+* return up to five matching locations from the backend;
+* display them in a simple list or dropdown;
+* show the city, region and country;
+* allow the user to select one;
+* retrieve weather for the selected location.
+
+---
+
+# At the End
 
 Be prepared to explain:
 
-- what you changed;
-- why you prioritised those changes;
-- how the frontend and backend communicate;
-- how you handled invalid input and API failures;
-- how you designed the forecast response;
-- how you verified the application;
-- what you would improve next with more time.
+* what you changed;
+* why you selected those tasks;
+* how you tested them;
+* what remains incomplete;
+* what you would improve with more time.
 
-## Use of AI tools
+Incomplete work is acceptable if you can clearly explain your approach.
 
-Use of AI tools is permitted.
+## AI Tools
 
-Before asking AI to make changes, you must first explain:
-
-- your understanding of the problem;
-- the solution you propose;
-- which part you intend to ask AI to help with.
-
-After using AI, you remain responsible for:
-
-- reviewing the generated code;
-- testing the changes;
-- verifying that the implementation works;
-- understanding and explaining the final solution.
-
-The use of AI will be assessed fairly and in context. Candidates will not be penalised simply for using AI. We will evaluate whether AI was used appropriately, whether the candidate understood the proposed solution, and whether the candidate was able to review, test, verify, and explain the final code.
+AI tools may be used, but you must understand, verify and explain the final code.
