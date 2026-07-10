@@ -1,39 +1,66 @@
 # Candidate Task: Weather Application
 
-You have inherited a small weather application built with Vue and a local backend.
-
-The application already allows users to search for a city and view its current weather.
-
-## Time
+The application already supports city search and current-weather display.
 
 You will have:
 
 * 15 minutes before the test to install dependencies and run the project
 * 60 minutes for the coding exercise
 
-This is not a UI design exercise. A simple and usable interface is enough.
+This is not a UI design exercise. A simple and usable interface is sufficient.
 
 ## Your Task
 
-Choose one route.
-
-### Route A
-
 Complete:
 
-* 1 frontend task
-* 2 backend tasks
+1. **AI Weather Advice**
 
-### Route B
+If there are additional time, complete below in order:
 
-Complete:
+2. **One backend task**
+3. **One frontend task**
 
-* 1 full-stack task
-* 1 backend task
+You do not need to complete any other tasks.
 
-You do not need to complete any tasks outside your selected route.
+The existing weather search must continue to work.
 
-The existing city search must continue to work.
+---
+
+# Required Full-Stack Task
+
+## AI Weather Advice
+
+A mock AI weather service is already provided.
+
+It accepts current-weather data and may return:
+
+```json
+{
+  "summary": "Warm and windy conditions.",
+  "recommendation": "Stay hydrated when outdoors.",
+  "riskLevel": "medium"
+}
+```
+
+### Backend
+
+* Call the mock AI service using the current-weather data
+* Treat its output as untrusted
+* Validate `summary` and `recommendation`
+* Accept only `low`, `medium`, or `high` for `riskLevel`
+* Handle malformed output, missing fields and service failure
+* Return a safe fallback without breaking the weather result
+* Do not replace factual weather values with AI-generated content
+
+### Frontend
+
+Display:
+
+* Summary
+* Recommendation
+* Risk level
+
+The factual weather result must remain visible if AI advice is unavailable.
 
 ---
 
@@ -43,90 +70,39 @@ Choose one.
 
 ## FE1: Validation and Feedback
 
-* Trim the city input
+* Trim city input
 * Prevent empty searches
 * Show loading and error states
-* Prevent repeated submissions while loading
-* Show different messages for “city not found” and backend failure
+* Prevent repeated submissions
+* Distinguish city-not-found from backend failure
 
 ## FE2: Debounced Search
 
 * Search after the user stops typing
-* Do not search empty values
-* Avoid unnecessary requests
-* Prevent an older request from replacing a newer result
-
-## FE3: Recent Searches
-
-* Store successful searches in browser storage
-* Keep a maximum of five cities
-* Remove case-insensitive duplicates
-* Allow a previous city to be searched again
-* Handle invalid stored data safely
+* Avoid empty and unnecessary requests
+* Prevent an older response from replacing a newer result
 
 ---
 
 # Backend Tasks
 
-Choose two for Route A, or one for Route B.
+Choose one.
 
 ## BE1: Validation and Errors
 
-* Trim and validate the city
+* Validate and normalise city input
 * Reject empty input
-* Return a suitable response when the city is not found
-* Use consistent error responses
-* Do not return raw exceptions to the frontend
+* Use suitable HTTP status codes
+* Return consistent error responses
+* Do not expose raw exceptions
 
 ## BE2: External API Reliability
 
 * Add timeouts to Open-Meteo requests
-* Handle connection and timeout failures
-* Handle missing or invalid API data
+* Handle connection failures and timeouts
+* Handle missing or malformed API data
 * Add useful backend logging
-* Return safe error messages to the frontend
-
-## BE3: In-Memory Cache
-
-* Cache successful weather results
-* Use a normalised city name as the cache key
-* Add a configurable expiry time
-* Do not cache failed requests
-* Demonstrate a cache hit and cache miss
-
----
-
-# Full-Stack Tasks
-
-Choose one for Route B.
-
-The frontend must call only the local backend.
-
-## FS1: Air Quality
-
-Use Open-Meteo’s Air Quality API to display:
-
-* AQI
-* PM2.5
-* PM10
-
-Use the city coordinates already retrieved by the backend.
-
-The weather result should still work if air-quality data is unavailable.
-
-A simple additional section or card is enough.
-
-## FS2: Multiple City Matches
-
-Some city names can refer to multiple locations.
-
-Instead of always using the first result:
-
-* return up to five matching locations from the backend;
-* display them in a simple list or dropdown;
-* show the city, region and country;
-* allow the user to select one;
-* retrieve weather for the selected location.
+* Return safe errors to the frontend
 
 ---
 
@@ -135,13 +111,10 @@ Instead of always using the first result:
 Be prepared to explain:
 
 * what you changed;
-* why you selected those tasks;
-* how you tested them;
+* how you validated the mock AI output;
+* why you selected the frontend and backend tasks;
+* how you tested your changes;
 * what remains incomplete;
 * what you would improve with more time.
 
-Incomplete work is acceptable if you can clearly explain your approach.
-
-## AI Tools
-
-AI tools may be used, but you must understand, verify and explain the final code.
+AI tools may be used, but you must understand, test and explain all generated code.

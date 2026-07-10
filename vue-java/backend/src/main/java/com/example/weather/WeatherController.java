@@ -20,8 +20,21 @@ import org.springframework.web.util.UriComponentsBuilder;
 @CrossOrigin(origins = "http://localhost:5173")
 public class WeatherController {
 
+    private final MockAiWeatherService mockAiWeatherService = new MockAiWeatherService();
+
     @GetMapping("/weather")
     public Map<String, Object> getWeather(@RequestParam String city) {
+        return getWeatherInternal(city, null, false);
+    }
+
+    @GetMapping("/weather/ai")
+    public Map<String, Object> getWeatherWithAi(
+            @RequestParam String city,
+            @RequestParam(required = false) String mode) {
+        return getWeatherInternal(city, mode, true);
+    }
+
+    private Map<String, Object> getWeatherInternal(String city, String mode, boolean includeAi) {
         try {
             RestClient client = RestClient.create();
 
@@ -66,6 +79,15 @@ public class WeatherController {
             response.put("apparentTemperature", current.get("apparent_temperature"));
             response.put("weatherCode", current.get("weather_code"));
             response.put("windSpeed", current.get("wind_speed_10m"));
+
+            if (includeAi) {
+                try {
+                    response.put("aiAdvice", mockAiWeatherService.generateAdvice(response, mode));
+                } catch (Exception exception) {
+                    response.put("aiAdvice", Map.of("error", "Mock AI service unavailable"));
+                }
+            }
+
             return response;
         } catch (ResponseStatusException exception) {
             throw exception;
