@@ -14,7 +14,7 @@ This is a short live coding assessment involving a Vue frontend and a local back
 
 Complete:
 
-1. **FS3: AI Weather Advice**
+1. **FS: AI Weather Advice**
 2. **One backend task**
 
 If time remains, you may complete one frontend task or one optional full-stack extension.
@@ -25,7 +25,7 @@ Important: the existing city weather search must continue to work correctly.
 
 ## Required Full-Stack Task
 
-### FS3: AI Weather Advice
+### FS: AI Weather Advice
 
 A deterministic mock AI weather service is already provided in the assigned backend implementation:
 
@@ -122,7 +122,7 @@ Choose one.
 
 ## Optional Frontend Tasks
 
-These tasks are optional unless frontend changes are required to complete FS3.
+These tasks are optional unless frontend changes are required to complete FS.
 
 If time remains, choose one.
 
