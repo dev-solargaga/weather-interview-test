@@ -116,3 +116,23 @@ The mock service should accept current-weather data and return a structure simil
   "recommendation": "Stay hydrated when outdoors.",
   "riskLevel": "medium"
 }
+```
+
+## End-of-Task Discussion
+
+Be prepared to explain:
+
+- What you changed
+- Why you selected those tasks
+- How you validated the mock AI output, if FS3 was selected
+- How you tested your work
+- Which parts remain incomplete
+- What you would improve with more time
+
+AI tools may be used, but candidates must understand, test, verify, and explain all generated code.
+
+## Bonus
+
+Focused manual checks are welcome.
+
+Automated tests are not required within the one-hour exercise.
